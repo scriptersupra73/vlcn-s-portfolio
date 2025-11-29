@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Bot Developer & Designer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(31, 117, 254, 0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(180deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-logo {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 5px solid #1F75FE;
+            box-shadow: 0 0 60px rgba(31, 117, 254, 0.6), 0 0 100px rgba(31, 117, 254, 0.3);
+            animation: float 6s ease-in-out infinite, glow 3s ease-in-out infinite;
+            margin-bottom: 2rem;
+            object-fit: cover;
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero-banner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 1400px;
+            height: 500px;
+            object-fit: cover;
+            opacity: 0.4;
+            z-index: 1;
+            border-radius: 30px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 60px rgba(31, 117, 254, 0.6), 0 0 100px rgba(31, 117, 254, 0.3); }
+            50% { box-shadow: 0 0 80px rgba(31, 117, 254, 0.8), 0 0 120px rgba(31, 117, 254, 0.5); }
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #1F75FE, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: #1F75FE;
+            margin-bottom: 3rem;
+            animation: slideIn 1s ease-out 0.2s backwards;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(15px); }
+        }
+
+        .scroll-indicator::after {
+            content: '↓';
+            font-size: 2rem;
+            color: #1F75FE;
+        }
+
+        .section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            color: #1F75FE;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: #1F75FE;
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .projects-grid .project-card:nth-last-child(-n+2) {
+            grid-column: span 1;
+        }
+
+        .projects-grid .project-card:nth-last-child(2) {
+            margin-left: auto;
+            margin-right: 20px;
+        }
+
+        .projects-grid .project-card:last-child {
+            margin-right: auto;
+            margin-left: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid .project-card:nth-last-child(2),
+            .projects-grid .project-card:last-child {
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+
+        .project-card {
+            background: rgba(31, 117, 254, 0.05);
+            border: 2px solid rgba(31, 117, 254, 0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(31, 117, 254, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #1F75FE;
+            box-shadow: 0 20px 60px rgba(31, 117, 254, 0.4);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            background: rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+        }
+
+        .project-content {
+            padding: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #1F75FE;
+        }
+
+        .project-desc {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .video-container {
+            width: 100%;
+            height: 250px;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(31, 117, 254, 0.2);
+            border: 1px solid #1F75FE;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #1F75FE;
+            font-weight: bold;
+        }
+
+        .designs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .designs-grid .design-card:last-child {
+            grid-column: 2 / 3;
+        }
+
+        @media (max-width: 950px) {
+            .designs-grid .design-card:last-child {
+                grid-column: auto;
+            }
+        }
+
+        .design-card {
+            background: rgba(31, 117, 254, 0.05);
+            border: 2px solid rgba(31, 117, 254, 0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+            cursor: pointer;
+        }
+
+        .design-card:hover {
+            transform: scale(1.05) rotate(2deg);
+            border-color: #1F75FE;
+            box-shadow: 0 15px 50px rgba(31, 117, 254, 0.5);
+        }
+
+        .design-image {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+            background: rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s;
+        }
+
+        .design-card:hover .design-image {
+            transform: scale(1.15);
+        }
+
+        .design-label {
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #1F75FE;
+            font-weight: bold;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(31, 117, 254, 0.1);
+            animation: float-shape 20s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+
+        .shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float-shape {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-30px) translateX(30px) rotate(90deg); }
+            50% { transform: translateY(-60px) translateX(-30px) rotate(180deg); }
+            75% { transform: translateY(-30px) translateX(30px) rotate(270deg); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .tagline { font-size: 1.2rem; }
+            .hero-logo { width: 200px; height: 200px; }
+            .section-title { font-size: 2rem; }
+            .projects-grid, .designs-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <section class="hero">
+        <img src="https://i.imgur.com/uvotNKP.png" alt="Banner" class="hero-banner">
+        <div class="hero-content">
+            <img src="https://i.imgur.com/2t1Z4cd.png" alt="Portfolio Logo" class="hero-logo">
+            <h1>Bot Developer & Designer</h1>
+            <p class="tagline">Crafting Digital Experiences</p>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <section class="section" id="bot-development">
+        <h2 class="section-title">Bot Development</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <img src="https://i.imgur.com/aoEjSfS.png" alt="N.E.S.T Bot" class="project-image">
+                <div class="project-content">
+                    <h3 class="project-title">N.E.S.T Bot</h3>
+                    <p class="project-desc">Developer of N.E.S.T for Sithis (70K) server.</p>
+                    <span class="badge">70K+ Users</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <img src="https://i.imgur.com/RCXuIQz.png" alt="Sithis Development" class="project-image">
+                <div class="project-content">
+                    <h3 class="project-title">Sithis Extended Development</h3>
+                    <p class="project-desc">Advanced bot features and custom integrations for large-scale server management.</p>
+                    <span class="badge">Custom Solutions</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <img src="https://i.imgur.com/rZpAXAX.png" alt="Sithis Extra" class="project-image">
+                <div class="project-content">
+                    <h3 class="project-title">Sithis Enhancement Module</h3>
+                    <p class="project-desc">Additional functionality and automation systems for enhanced user experience.</p>
+                    <span class="badge">Advanced Features</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <img src="https://i.imgur.com/Y6098rq.png" alt="Roman Republic Bot" class="project-image">
+                <div class="project-content">
+                    <h3 class="project-title">Roman Republic Bot</h3>
+                    <p class="project-desc">Comprehensive bot system with advanced moderation and community management features.</p>
+                    <span class="badge">Full Stack</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="video-container">
+                    <video controls autoplay muted loop>
+                        <source src="https://i.imgur.com/y2VzDkA.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Roman Republic Demo</h3>
+                    <p class="project-desc">Live demonstration of bot capabilities and interactive features in action.</p>
+                    <span class="badge">Live Demo</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="designs">
+        <h2 class="section-title">Design Portfolio</h2>
+        <div class="designs-grid">
+            <div class="design-card">
+                <img src="https://i.imgur.com/K4p0Zqh.png" alt="Sithis Design" class="design-image">
+                <div class="design-label">Sithis Server Design</div>
+            </div>
+
+            <div class="design-card">
+                <img src="https://i.imgur.com/1Nlpjk5.png" alt="Velocity Design" class="design-image">
+                <div class="design-label">Velocity Design</div>
+            </div>
+
+            <div class="design-card">
+                <img src="https://i.imgur.com/n3bjmvk.png" alt="Snow.bio Design" class="design-image">
+                <div class="design-label">Snow.bio Design</div>
+            </div>
+
+            <div class="design-card">
+                <img src="https://i.imgur.com/IGDyjtV.jpeg" alt="Roman Republic Design" class="design-image">
+                <div class="design-label">Roman Republic Design</div>
+            </div>
+
+            <div class="design-card">
+                <img src="https://i.imgur.com/ev47zBu.jpeg" alt="Roman Republic Design 2" class="design-image">
+                <div class="design-label">Roman Republic Design II</div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.querySelectorAll('.project-card, .design-card').forEach(card => {
+            card.addEventListener('mouseenter', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                this.style.setProperty('--mouse-x', x + 'px');
+                this.style.setProperty('--mouse-y', y + 'px');
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card, .design-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = 'all 0.6s ease-out';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
